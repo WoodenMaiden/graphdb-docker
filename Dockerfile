@@ -8,6 +8,8 @@ ENV GRAPHDB_HOME=${GRAPHDB_PARENT_DIR}/home
 
 ENV GRAPHDB_INSTALL_DIR=${GRAPHDB_PARENT_DIR}/dist
 
+COPY entrypoint.sh /entrypoint.sh
+
 WORKDIR /tmp
 
 RUN apk add --no-cache bash curl util-linux procps net-tools busybox-extras wget less libc6-compat && \
@@ -26,7 +28,7 @@ ENV PATH=${GRAPHDB_INSTALL_DIR}/bin:$PATH
 
 CMD ["-Dgraphdb.home=/opt/graphdb/home"]
 
-ENTRYPOINT ["/opt/graphdb/dist/bin/graphdb"]
+ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 7200
 EXPOSE 7300
